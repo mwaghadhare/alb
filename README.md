@@ -55,32 +55,7 @@ For automated test of the complete example using `bats` and `Terratest`, see [te
     region = var.region
   }
 
-  module "vpc" {
-    source     = "git::https://github.com/cloudposse/terraform-aws-vpc.git?ref=tags/0.8.1"
-    namespace  = var.namespace
-    stage      = var.stage
-    name       = var.name
-    delimiter  = var.delimiter
-    attributes = var.attributes
-    cidr_block = var.vpc_cidr_block
-    tags       = var.tags
-  }
 
-  module "subnets" {
-    source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.16.1"
-    availability_zones   = var.availability_zones
-    namespace            = var.namespace
-    stage                = var.stage
-    name                 = var.name
-    attributes           = var.attributes
-    delimiter            = var.delimiter
-    vpc_id               = module.vpc.vpc_id
-    igw_id               = module.vpc.igw_id
-    cidr_block           = module.vpc.vpc_cidr_block
-    nat_gateway_enabled  = false
-    nat_instance_enabled = false
-    tags                 = var.tags
-  }
 
   module "alb" {
     source = "mwaghadhare/alb"
